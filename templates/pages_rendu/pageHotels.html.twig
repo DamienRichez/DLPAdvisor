@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les Hôtels{% endblock %}
+
+{% block body %}
+
+        <!-- Page Content Hotels -->
+        <div class="container" style="padding-top:50px">
+          <a href=""><h1>Les Hôtels:</h1></a>
+            <div class="row">
+            {% for hotels in hotels %}
+              <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card h-100">
+                  <a href="{{path('hotels', {'id': hotels.id })}}"><img class="card-img" src="{{asset('img/hotels/' ~ hotels.image)}}" alt=""></a>
+                  <div class="card-body">
+                    <h4 class="card-title">
+                      <a href="{{path('hotels', {'id': hotels.id })}}">{{hotels.nom}}</a>
+                    </h4>
+                    <p class="card-text">{{hotels.description|length > 100 ?hotels.description|slice(0, 100) ~ '...' : hotels.description}}</p>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+            </div>
+            <!-- /.row -->
+          <!-- /.container -->
+
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DLPlatform{% endblock %}
+
+{% block body %}
+
+<!-- Page Content -->
+<div class="container" style="padding-bottom: 100px;">
+
+    <!-- Portfolio Item Heading -->
+    <h1 class="my-4">{{soirees.nom}}</h1>
+  
+    <!-- Portfolio Item Row -->
+    <div class="row">
+  
+      <div class="col-md-8">
+        <img class="img-fluid" src="{{asset('img/soirees/') ~ soirees.image}}" alt="">
+      </div>
+  
+      <div class="col-md-4">
+        <h3 class="my-3">Description de la Soirée:</h3>
+        <p>{{soirees.description}}</p>
+
+        {% if notation|length >= 1 %}
+        <h4 class="my-3">Moyenne des notes: 
+            {% set sum = 0 %}
+            {% for notation in notation %}
+            {% set sum = sum + notation.note %}
+            {% endfor %}
+            {% set avg = sum/notation |length %}
+            {{avg|round(1, 'floor')}}/10
+        </h4>
+
+        {% else %}
+        <h6>Pas de moyenne: Il faut un minimum de 1 note pour faire une moyenne</h6>
+        {% endif %}
+      </div>
+    </div>
+    <!-- /.row -->
+
+    {% if app.user %}
+    <h4 class="my-3" style="padding-top: 50px;">Laissez un avis: </h4>
+      <div class="container">
+        {{form_start(form)}}
+        {{ form_row(form.avis, {'label': 'Votre Avis: '}) }}
+        {{ form_row(form.note, {'label': 'Votre Note: '}) }}
+          <input type="submit" class="btn btn-primary" value="Valider">
+        {{form_end(form)}}
+      </div>
+
+    {% else %}
+
+      <h4 class="my-3" style="padding-top: 50px;">Veuillez vous connecter pour laisser un avis: 
+        <a href="{{path('inscription')}}" class="btn btn-primary">Inscription</a>
+        <a href="{{path('login')}}" class="btn btn-primary">Connexion</a>    
+        </h4>
+    {% endif %}
+
+      <h4 class="my-3" style="padding-top: 50px;">Les Avis: </h4>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col-2">Utilisateur</th>
+              <th scope="col-2">Note</th>
+              <th scope="col">Avis</th>
+              {% if is_granted('ROLE_ADMIN') %}
+              <th scope="col">Supprimer</th>
+              {% endif %}
+            </tr>
+          </thead>
+        <tbody>
+              
+        {% for notation in soirees.notation %}
+          <tr>
+            <td>{{ notation.idUser.surname }} {{ notation.idUser.name }}</td>
+            <td>{{notation.note}}</td>
+            <td>{{notation.avis}}</td>
+            {% if is_granted('ROLE_ADMIN') %}
+            <td>
+              <form method="POST" style="display:inline-block" action="{{path('suppNotations', {'id' : notation.id})}}" onsubmit="return confirm('Confirmer la suppression ?')">
+              <input type="hidden" name="_method" value="SUP">
+              <input type="hidden" name="_token" value="{{csrf_token('SUP' ~ notation.id)}}">
+              <input type="submit" class="btn btn-danger" value="Supprimer">
+              </form>
+          </td>
+          {% endif %}
+          </tr>  
+        {% endfor %}
+
+        </tbody>
+      </table>
+
+  </div>
+  <!-- /.container -->
+
+{% endblock %}

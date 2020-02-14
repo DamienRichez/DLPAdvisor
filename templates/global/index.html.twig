@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DLPlatform{% endblock %}
+
+{% block body %}
+
+<!-- Full Page Image Header with Vertically Centered Content -->
+<header class="masthead">
+  <div class="container h-100">
+    <div class="row h-100 align-items-center">
+      <div class="col-12 text-center">   
+      </div>
+    </div>
+  </div>
+</header>
+  
+    <!-- Page Content Attractions -->
+<div class="container" style="padding-top:50px">
+  <a href=""><h1>Les Attractions:</h1></a>
+    <div class="row">
+    {% for attractions in attractions %}
+      <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+        <div class="card h-100">
+          <a href="{{path('attractions', {'id': attractions.id })}}"><img class="card-img" src="{{asset('img/attractions/' ~ attractions.image)}}" alt=""></a>
+          <div class="card-body">
+            <h4 class="card-title">
+              <a href="{{path('attractions', {'id': attractions.id })}}">{{attractions.name}}</a>
+            </h4>
+            <p class="card-text">{{attractions.description|length > 100 ?attractions.description|slice(0, 100) ~ '...' : attractions.description}}</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+    <!-- /.row -->
+  <!-- /.container -->
+
+      <!-- Page Content Restaurants -->
+<div class="container" style="padding-top:50px">
+  <a href=""><h1>Les Restaurants:</h1></a>
+    <div class="row">
+    {% for restaurants in restaurants %}
+      <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+        <div class="card h-100">
+          <a href="{{path('restaurants', {'id': restaurants.id })}}"><img class="card-img" src="{{asset('img/restaurants/' ~ restaurants.image)}}" alt=""></a>
+          <div class="card-body">
+            <h4 class="card-title">
+              <a href="{{path('restaurants', {'id': restaurants.id })}}">{{restaurants.nom}}</a>
+            </h4>
+            <p class="card-text">{{restaurants.description|length > 100 ?restaurants.description|slice(0, 100) ~ '...' : restaurants.description}}</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+    <!-- /.row -->
+  <!-- /.container -->
+
+        <!-- Page Content Hotels -->
+<div class="container" style="padding-top:50px">
+  <a href=""><h1>Les Hôtels:</h1></a>
+    <div class="row">
+    {% for hotels in hotels %}
+      <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+        <div class="card h-100">
+          <a href="{{path('hotels', {'id': hotels.id })}}"><img class="card-img" src="{{asset('img/hotels/' ~ hotels.image)}}" alt=""></a>
+          <div class="card-body">
+            <h4 class="card-title">
+              <a href="{{path('hotels', {'id': hotels.id })}}">{{hotels.nom}}</a>
+            </h4>
+            <p class="card-text">{{hotels.description|length > 100 ?hotels.description|slice(0, 100) ~ '...' : hotels.description}}</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+    <!-- /.row -->
+  <!-- /.container -->
+
+          <!-- Page Content Soirees -->
+<div class="container" style="padding-top:50px">
+  <a href=""><h1>Les Soirées:</h1></a>
+    <div class="row">
+    {% for soirees in soirees %}
+      <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+        <div class="card h-100">
+          <a href="{{path('soirees', {'id': soirees.id })}}"><img class="card-img" src="{{asset('img/soirees/' ~ soirees.image)}}" alt=""></a>
+          <div class="card-body">
+            <h4 class="card-title">
+              <a href="{{path('soirees', {'id': soirees.id })}}">{{soirees.nom}}</a>
+            </h4>
+            <p class="card-text">{{soirees.description|length > 100 ?soirees.description|slice(0, 100) ~ '...' : soirees.description}}</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+    <!-- /.row -->
+  <!-- /.container -->
+
+{% endblock %}

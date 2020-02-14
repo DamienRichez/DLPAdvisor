@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les Soirées{% endblock %}
+
+{% block body %}
+
+          <!-- Page Content Soirees -->
+          <div class="container" style="padding-top:50px">
+            <a href=""><h1>Les Soirées:</h1></a>
+              <div class="row">
+              {% for soirees in soirees %}
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                  <div class="card h-100">
+                    <a href="{{path('soirees', {'id': soirees.id })}}"><img class="card-img" src="{{asset('img/soirees/' ~ soirees.image)}}" alt=""></a>
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        <a href="{{path('soirees', {'id': soirees.id })}}">{{soirees.nom}}</a>
+                      </h4>
+                      <p class="card-text">{{soirees.description|length > 100 ?soirees.description|slice(0, 100) ~ '...' : soirees.description}}</p>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+              </div>
+              <!-- /.row -->
+            <!-- /.container -->
+
+{% endblock %}

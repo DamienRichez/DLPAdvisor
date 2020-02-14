@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DlPlatform - Connexion{% endblock %}
+
+{% block body %}
+
+{% if error %}
+    <div class="alert alert-danger"> 
+        Le Pseudo et le mot de passe ne sont pas bon.
+    </div>
+{% endif %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <h5 class="card-title text-center">Connexion</h5>
+          <form class="form-signin" action="{{path('login')}}" method="POST">
+            <div class="form-label" style="padding-bottom:20px">
+              <label for="">Adresse mail</label>
+              <input type="text" class="form-control" name="_username" required autofocus>     
+            </div>
+
+            <div class="form-label" style="padding-bottom:20px">
+              <label for="">Mot de Passe</label>
+              <input type="password" name="_password" class="form-control" required> 
+            </div>
+            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Connexion</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

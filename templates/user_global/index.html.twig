@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de {{users.name}} {{users.surname}}{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <a href="{{path('modifUsers', {'id' : users.id}) }}" class="btn btn-warning">modifier</a>
+            <form method="POST" style="display:inline-block" action="{{path('suppUsers', {'id' : users.id})}}" onsubmit="return confirm('Confirmer la suppression ?')">
+                <input type="hidden" name="_method" value="SUP">
+                <input type="hidden" name="_token" value="{{csrf_token('SUP' ~ users.id)}}">
+                <input type="submit" class="btn btn-danger" value="Supprimer">
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

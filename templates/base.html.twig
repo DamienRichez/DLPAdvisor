@@ -2,11 +2,87 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=7">
+        
+        <title>{% block title %}DLPlatform{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{asset('css/main.css')}}">
+
     </head>
+
+      <!--Navbar -->
+<nav class="mb-1 navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="{{path('accueil')}}">DLPlatform</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+    aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{{path('accueil')}}">Accueil</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Notation
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{path('pageToutesAttractions')}}">Attractions</a>
+          <a class="dropdown-item" href="{{path('pageToutRestaurants')}}">Restaurants</a>
+          <a class="dropdown-item" href="{{path('pageToutHotels')}}">Hôtels</a>
+          <a class="dropdown-item" href="{{path('pageToutesSoirees')}}">Soirées</a>
+        </div>
+      </li>
+</ul>
+    </ul>
+    {% if app.user %}
+    <ul class="navbar-nav ml-auto nav-flex-icons">
+      <li class="nav-item avatar dropdown">
+        <a class="nav-link p-0 dropdown-toggle" id="navbarDropdown"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+          <img src="{{asset('img/users_profile/' ~ users.image)}}" class="rounded-circle z-depth-0"
+            alt="avatar image" height="35">
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          {% if is_granted('ROLE_ADMIN') %}
+          <a class="dropdown-item" href="{{path('adminAttractions')}}">Attractions</a>
+          <a class="dropdown-item" href="{{path('adminRestaurants')}}">Restaurants</a>
+          <a class="dropdown-item" href="{{path('adminHotels')}}">Hôtels</a>
+          <a class="dropdown-item" href="{{path('adminSoirees')}}">Soirées</a>
+          <a class="dropdown-item" href="{{path('adminUsers')}}">Utilisateurs</a>
+          {% endif %}
+          <a class="dropdown-item" href="{{path('userProfil', {'id': users.id })}}">Profil</a>
+          <a class="dropdown-item" href="{{path('logout')}}">Déconnexion</a>
+        </div>
+      </li>
+    </ul>
+    {% endif %}
+    {% if not app.user %}
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{path('inscription')}}">Inscription</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{path('login')}}">Connexion</a>
+      </li>
+    </ul>
+    {% endif %}
+    </li>
+  </div>
+</nav>
+<!--/.Navbar -->
+
     <body>
+        <div class="page-content d-flex flex-column"> 
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        </div> 
+        {% block javascripts %}
+        {% endblock %}
     </body>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 </html>

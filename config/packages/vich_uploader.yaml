@@ -1,0 +1,28 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        attractions_image:
+            uri_prefix: /img
+            upload_destination: '%kernel.project_dir%/public/img/attractions'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+        restaurants_image:
+            uri_prefix: /img
+            upload_destination: '%kernel.project_dir%/public/img/restaurants'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+        hotels_image:
+            uri_prefix: /img
+            upload_destination: '%kernel.project_dir%/public/img/hotels'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+        soirees_image:
+            uri_prefix: /img
+            upload_destination: '%kernel.project_dir%/public/img/soirees'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        
+        users_image:
+            uri_prefix: /img
+            upload_destination: '%kernel.project_dir%/public/img/users_profile'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
